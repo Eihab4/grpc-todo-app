@@ -19,10 +19,23 @@ const client = new todoPackage.Todo('localhost:50051', grpc.credentials.createIn
 console.log(`Sending message: ${text}`);
 
 const todoObject = {
-    id: -1,
     text: text,
 };
 
 client.createTodo(todoObject, (error, response) => {
     console.log('Received response:', JSON.stringify(response));
+});
+
+client.getTodos({}, (error, response) => { 
+    console.log('All Todos:', JSON.stringify(response));
+});
+
+const call = client.getTodosStream();
+
+call.on('data', (todo) => {
+    console.log('Received todo from streaming:', todo);
+});
+
+call.on('end', () => {
+    console.log('No more todos.');
 });

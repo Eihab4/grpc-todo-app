@@ -26,8 +26,11 @@ function createTodo(call, callback) {
 }
 
 function getTodos(call, callback) {
-  console.log("Fetching all todos");
-  callback(null, { todoItems: todos });
+    console.log("Fetching all todos");
+    const todoItems = {
+        todos: todos.map(todo => ({ id: todo.id, text: todo.text })),
+    }
+  callback(null, todoItems);
 }
 
 function getTodosStream(call) {
@@ -39,9 +42,9 @@ function getTodosStream(call) {
 }
 
 server.addService(todoPackage.Todo.service, {
-  createTodo,
-  getTodos,
-  getTodosStream
+  "createTodo": createTodo,
+  "getTodos": getTodos,
+  "getTodosStream": getTodosStream
 });
 
 server.bindAsync("127.0.0.1:50051", grpc.ServerCredentials.createInsecure(), (error, port) => {
