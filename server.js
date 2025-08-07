@@ -19,7 +19,9 @@ const server = new grpc.Server();
 server.bind("127.0.0.1:50051", grpc.ServerCredentials.createInsecure());
 
 server.addService(todoPackage.TodoService.service, {
-    "createTodo": createTodo
+    "createTodo": createTodo,
+    "getTodos": getTodos,
+    "getTodosStream": getTodosStream
 });
 
 
