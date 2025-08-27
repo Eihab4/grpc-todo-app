@@ -81,7 +81,7 @@ message NoParameters {} // Empty message for methods that don't require paramete
 
 The `server.js` file implements the gRPC server that handles client requests.
 
-```javascript
+```JavaScript
 import grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
 
